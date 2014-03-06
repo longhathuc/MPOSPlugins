@@ -1,6 +1,9 @@
 var exec = require ("cordova/exec");
 //AppSettings plugin
-function AppSettings(){}
+//function AppSettings(){}
+
+var AppsSettings = function(){
+};
 
 AppSettings.prototype.getAppSettings = function(){
 	if (cordova.available)
@@ -27,3 +30,5 @@ function setAppSettingsResult(msg){
 	_alert(msg);
 	_log(msg);
 }
+
+module.exports = new SpeechSynthesis();
