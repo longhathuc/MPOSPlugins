@@ -1,4 +1,4 @@
-
+<script>
 //AppSettings plugin
 function AppSettings(){}
 AppSettings.prototype.getAppSettings = function(){
@@ -26,3 +26,4 @@ function setAppSettingsResult(msg){
     _alert(msg);
     _log(msg);
 }
+</script>
