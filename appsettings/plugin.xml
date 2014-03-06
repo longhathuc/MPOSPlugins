@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin id="appsettings" version="2.0" xmlns="http://apache.org/cordova/ns/plugin/1.0">
+	<name>AppSettings</name>
+    <description>MPOS AppSettings Plugin</description>
+    <license>Apache 2.0 License</license>
+    <keywords>settings</keywords>       
+    <js-module src="www/appsettings.js" name="appsettings">
+        <clobbers target="appsettings" />
+    </js-module>
+    <platform name="ios">
+        <config-file target="config.xml" parent="/*">
+            <feature name="AppSettings">
+                <param name="ios-package" value="AppSettings"/>
+            </feature>
+        </config-file>
+        <header-file src="src/ios/AppSettings.h" />
+        <source-file src="src/ios/AppSettings.m" />
+    </platform>
+</plugin>
