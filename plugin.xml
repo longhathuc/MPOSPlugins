@@ -6,6 +6,9 @@
     <description>MPOS AppSettings Plugin</description>
     <license>Apache 2.0 License</license>
     <keywords>settings,app</keywords>       
+    <engines>
+		<engine name="cordova" version="3.3.0"/>
+    </engines>
     <js-module src="www/appsettings.js" name="appsettings">
         <clobbers target="appsettings" />
     </js-module>

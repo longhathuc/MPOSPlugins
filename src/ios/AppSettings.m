@@ -11,9 +11,10 @@
 @implementation AppSettings
 @synthesize callbackID;
 
-- (void) getAppSettings:(NSMutableArray *)arguments withDict:(NSMutableDictionary *)options{
-	
-	@try {
+- (void)getAppSettings:(CDVInvokedUrlCommand*)command{
+    
+ 	@try {
+        NSMutableArray *arguments = [command.arguments objectAtIndex:0];
 		callbackID = [arguments pop];
 		
 		NSUserDefaults *settings = [NSUserDefaults standardUserDefaults];
@@ -50,12 +51,18 @@
 	@finally {
 		
 	}
-	
+
+    
 }
 
-- (void) setAppSettings:(NSMutableArray *)arguments withDict:(NSMutableDictionary *)options{
+
+- (void) setAppSettings:(CDVInvokedUrlCommand*)command{
 	@try {
-		callbackID = [arguments pop];
+        
+        NSMutableDictionary *options = [command.arguments objectAtIndex:0];
+        
+		callbackID = [[command.arguments objectAtIndex:0] pop];
+        
 		NSUserDefaults *settings = [NSUserDefaults standardUserDefaults];
 		NSString *hostUrl = [options valueForKey:@"hostUrl"];
 		NSString *hwVendor = [options valueForKey:@"hwVendor"];
