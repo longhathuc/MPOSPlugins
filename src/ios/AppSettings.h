@@ -14,7 +14,6 @@
 }
 @property (nonatomic, copy) NSString* callbackID;
 
-- (void) getAppSettings:(NSMutableArray*)arguments withDict:(NSMutableDictionary*)options;
-- (void) setAppSettings:(NSMutableArray*)arguments withDict:(NSMutableDictionary*)options;
+
 
 @end
