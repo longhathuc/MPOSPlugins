@@ -14,9 +14,9 @@
 - (void)getAppSettings:(CDVInvokedUrlCommand*)command{
     
  	@try {
+        CDVPluginResult *pluginResult = nil;
+        
         NSMutableArray *arguments = [command.arguments objectAtIndex:0];
-		callbackID = [arguments pop];
-		
 		NSUserDefaults *settings = [NSUserDefaults standardUserDefaults];
 		NSString *hostUrl = [settings stringForKey:@"hostUrl"];
 		NSString *hwVendor = [settings valueForKey:@"hwVendor"];
@@ -24,7 +24,7 @@
 		NSString *autoSignoffTimeout = [settings stringForKey:@"autoSignoffTimeout"];
 		NSString *debugMode = [settings stringForKey:@"debugMode"];
         NSString *version = [settings stringForKey:@"version"];
-        //NSString *pcRequestTimeout = [settings stringForKey:@"pcRequestTimeout"];
+        NSString *pcRequestTimeout = [settings stringForKey:@"pcRequestTimeout"];
         //logo
         //NSString *dfsLogo = [settings stringForKey:@"dfsLogo"];
 		
@@ -35,7 +35,7 @@
 		[dicSettings setObject:autoSignoffTimeout forKey:@"autoSignoffTimeout"];
 		[dicSettings setObject:debugMode forKey:@"debugMode"];
         [dicSettings setObject:version forKey:@"version"];
-        //[dicSettings setObject:pcRequestTimeout forKey:@"pcRequestTimeout"];
+        [dicSettings setObject:pcRequestTimeout forKey:@"pcRequestTimeout"];
         //[dicSettings setObject:dfsLogo forKey:@"dfsLogo"];
 		
 		CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:dicSettings];
@@ -58,11 +58,8 @@
 
 - (void) setAppSettings:(CDVInvokedUrlCommand*)command{
 	@try {
-        
+        CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:dicSettings];
         NSMutableDictionary *options = [command.arguments objectAtIndex:0];
-        
-		callbackID = [[command.arguments objectAtIndex:0] pop];
-        
 		NSUserDefaults *settings = [NSUserDefaults standardUserDefaults];
 		NSString *hostUrl = [options valueForKey:@"hostUrl"];
 		NSString *hwVendor = [options valueForKey:@"hwVendor"];
@@ -74,8 +71,10 @@
 		[settings setValue:autoSignoffTimeout forKey:@"autoSignoffTimeout"];
         [settings setValue:version forKey:@"version"];
 		[settings synchronize];
+        
         NSLog(@"Mobile Pos Version : %@", version);
 		[self writeJavascript:@"window.plugins.AppSettings.setAppSettingsResult('Settings updated');"];
+        [self writeJavascript: [pluginResult toSuccessCallbackString:self.callbackID]];
 	}
 	@catch (NSException *exception) {
 		[self writeJavascript:[[NSString alloc] initWithFormat:@"window.plugins.AppSettings.setAppSettingsResult('Exception: %@');", [exception description]]];

@@ -1,4 +1,6 @@
-var exec    = require("cordova/exec");
+var exec    = require("cordova/exec"),
+	argscheck = require('cordova/argscheck'),
+    utils = require('cordova/utils'),
     cordova = require('cordova');
 //AppSettings plugin
 //function AppSettings(){}

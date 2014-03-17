@@ -8,12 +8,11 @@
 
 
 #import <Cordova/CDVPlugin.h>
+#import <UIKit/UIKit.h>
 
 @interface AppSettings: CDVPlugin{
-	
 }
-@property (nonatomic, copy) NSString* callbackID;
 
-
-
+- (void)getAppSettings:(CDVInvokedUrlCommand*)command;
+- (void) setAppSettings:(CDVInvokedUrlCommand*)command;
 @end
