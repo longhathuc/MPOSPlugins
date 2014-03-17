@@ -9,7 +9,7 @@
 #import "AppSettings.h"
 
 @implementation AppSettings
-@synthesize callbackID;
+
 
 - (void)getAppSettings:(CDVInvokedUrlCommand*)command{
     
@@ -38,9 +38,9 @@
         [dicSettings setObject:pcRequestTimeout forKey:@"pcRequestTimeout"];
         //[dicSettings setObject:dfsLogo forKey:@"dfsLogo"];
 		
-		CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:dicSettings];
+		pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:dicSettings];
 		if ([dicSettings count]>0)
-			[self writeJavascript: [pluginResult toSuccessCallbackString:self.callbackID]];
+			[self writeJavascript: [pluginResult toSuccessCallbackString:nil]];
 		else
 			[self writeJavascript: @"window.plugins.AppSettings.getAppSettingsFail('No App Setting found');"];
 	}
@@ -58,7 +58,6 @@
 
 - (void) setAppSettings:(CDVInvokedUrlCommand*)command{
 	@try {
-        CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:dicSettings];
         NSMutableDictionary *options = [command.arguments objectAtIndex:0];
 		NSUserDefaults *settings = [NSUserDefaults standardUserDefaults];
 		NSString *hostUrl = [options valueForKey:@"hostUrl"];
@@ -74,7 +73,7 @@
         
         NSLog(@"Mobile Pos Version : %@", version);
 		[self writeJavascript:@"window.plugins.AppSettings.setAppSettingsResult('Settings updated');"];
-        [self writeJavascript: [pluginResult toSuccessCallbackString:self.callbackID]];
+      
 	}
 	@catch (NSException *exception) {
 		[self writeJavascript:[[NSString alloc] initWithFormat:@"window.plugins.AppSettings.setAppSettingsResult('Exception: %@');", [exception description]]];
