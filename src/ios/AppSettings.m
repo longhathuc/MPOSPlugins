@@ -14,9 +14,9 @@
 - (void)getAppSettings:(CDVInvokedUrlCommand*)command{
     
  	@try {
+    
         CDVPluginResult *pluginResult = nil;
         
-        NSMutableArray *arguments = [command.arguments objectAtIndex:0];
 		NSUserDefaults *settings = [NSUserDefaults standardUserDefaults];
 		NSString *hostUrl = [settings stringForKey:@"hostUrl"];
 		NSString *hwVendor = [settings valueForKey:@"hwVendor"];
@@ -40,7 +40,7 @@
 		
 		pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:dicSettings];
 		if ([dicSettings count]>0)
-			[self writeJavascript: [pluginResult toSuccessCallbackString:nil]];
+			[self writeJavascript: [pluginResult toSuccessCallbackString:command.callbackId]];
 		else
 			[self writeJavascript: @"window.plugins.AppSettings.getAppSettingsFail('No App Setting found');"];
 	}
@@ -56,7 +56,7 @@
 }
 
 
-- (void) setAppSettings:(CDVInvokedUrlCommand*)command{
+- (void)setAppSettings:(CDVInvokedUrlCommand*)command{
 	@try {
         NSMutableDictionary *options = [command.arguments objectAtIndex:0];
 		NSUserDefaults *settings = [NSUserDefaults standardUserDefaults];
@@ -84,5 +84,6 @@
 	}
 	
 }
+
 
 @end

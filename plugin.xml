@@ -11,7 +11,7 @@
     </engines>
     
     <platform name="ios">
-    	<js-module src="www/appsettings.js" name="appsettings">
+    	<js-module src="www/appsettings.js" name="Appsettings">
        		 <clobbers target="appsettings" />
  	   	</js-module>
         <config-file target="config.xml" parent="/*">
